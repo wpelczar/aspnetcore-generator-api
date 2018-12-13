@@ -11,4 +11,4 @@ RUN dotnet restore
 COPY . .
 
 # test
-ENTRYPOINT [ "dotnet", "test"]
+ENTRYPOINT [ "dotnet", "test", "--logger:'console;verbosity=normal'"]
