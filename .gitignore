@@ -291,4 +291,6 @@ __pycache__/
 *.odx.cs
 *.xsd.cs
 
+infra/swarm/.vagrant
+
 # End of https://www.gitignore.io/api/visualstudio

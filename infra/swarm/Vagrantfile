@@ -1,0 +1,34 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.configure("2") do |config|
+
+    config.vm.box = "bento/ubuntu-16.04"
+    config.vm.box_version = "201808.24.0"
+    config.vm.provision "shell", path: "provision/node.sh", privileged: true
+    config.vm.synced_folder ".", "/vagrant", disabled: true
+
+    # Managers
+    (1..1).each do |number|
+        config.vm.define "m#{number}" do |node|
+            node.vm.network "public_network", ip: "192.168.1.20#{number}", bridge: "en0: Ethernet"
+            node.vm.hostname = "m#{number}"
+        end  
+    end
+
+    # Workers
+    (1..2).each do |number|
+        config.vm.define "w#{number}" do |node|
+            node.vm.network "public_network", ip: "192.168.1.21#{number}", bridge: "en0: Ethernet"
+            node.vm.hostname = "w#{number}"
+        end  
+    end
+
+    config.vm.provider "hyperv" do |v|
+        v.memory = 512 
+        v.cpus = 1
+    end
+
+    
+
+end
